@@ -1,6 +1,5 @@
 package com.elmenus.user.model;
 
-import com.elmenus.cart.model.CartItem;
 import com.elmenus.order.model.Orders;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

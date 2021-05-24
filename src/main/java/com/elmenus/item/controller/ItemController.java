@@ -29,18 +29,7 @@ public class ItemController {
 
     @PostMapping(consumes="application/json")
     ResponseEntity<?> addItem(@RequestBody ItemDTO item) throws ItemAlreadyExistException, AddNewItemException {
-        try {
-            ItemDTO serviceResult = itemService.addItem(item);
-            return new ResponseEntity(serviceResult, CREATED);
-
-        }catch (ItemAlreadyExistException e){
-            e.printStackTrace();
-            throw  new ItemAlreadyExistException();
-        }catch (AddNewItemException e){
-            e.printStackTrace();
-            throw new AddNewItemException();
-        }
-//        return new ResponseEntity(itemService.addItem(item), CREATED);
+        return new ResponseEntity(itemService.addItem(item), CREATED);
     }
 
 }

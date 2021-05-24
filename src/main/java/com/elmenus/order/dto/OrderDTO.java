@@ -5,7 +5,6 @@ import com.elmenus.user.model.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Min;
 import java.util.List;
 
 @Getter

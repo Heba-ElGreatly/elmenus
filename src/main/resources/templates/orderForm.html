@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <object th:include="fragments/head :: head" th:remove="tag"></object>
+    <title>Order Form</title>
+</head>
+
+<body>
+<h1>Order Form</h1>
+<form id="orderForm" th:action="@{/orderForm}" th:object="${order}" method="POST">
+    <div class="line-item" th:each="cartItem, cartItemStatus : *{cartItems}">
+        <input type="hidden" th:field="*{orderId}"/>
+        <input type="hidden" th:field="*{cartItems[__${cartItemStatus.index}__].item.itemName}"/>
+        <input type="hidden" th:field="*{cartItems[__${cartItemStatus.index}__].item.price}"/>
+        <div class="product-name" th:text="'Qty: ' + ${cartItem.itemQuantity} + ' '+${cartItem.item.itemName} + ' ' + ${cartItem.item.price}+'LE'"></div>
+    </div>
+    <div type="hidden" th:text="'Tax: '+ ${order.tax} + 'LE'"/>
+    <div type="hidden" th:text="'Total Order: '+ ${order.total} + 'LE'"/>
+    <div>
+
+        <button type="submit">Check Out</button>
+    </div>
+</form>
+</body>
+</html>

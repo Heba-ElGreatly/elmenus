@@ -1,11 +1,10 @@
 package com.elmenus.mapper;
 
-import com.elmenus.cart.dto.CartDTO;
 import com.elmenus.cart.dto.CartItemDTO;
 import com.elmenus.cart.model.CartItem;
-//import com.elmenus.cart.model.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class CartItemMapper {

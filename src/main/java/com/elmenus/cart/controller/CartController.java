@@ -1,8 +1,6 @@
 package com.elmenus.cart.controller;
 
 import com.elmenus.cart.dto.CartDTO;
-import com.elmenus.cart.exception.CartHasNoItemsException;
-import com.elmenus.cart.exception.SoldOutCartItemException;
 import com.elmenus.cart.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,18 +29,6 @@ public class CartController {
     @GetMapping(value = "/validate-data/{userId}")
     ResponseEntity<?> validatingItems(@PathVariable(name = "userId") Integer userId) {
         CartDTO cartItems = cartService.getUserCartItems(userId);
-        cartService.applyCartCheckout(cartItems);
         return ResponseEntity.noContent().build();
     }
-
-    // the full scenario
-    //TODO fixing payment exception
-    @GetMapping(value = "/payment/{userId}")
-    ResponseEntity<?> payingWithCreditCard(@PathVariable(name = "userId") Integer userId){
-        CartDTO cartItems = cartService.getUserCartItems(userId);
-        cartService.applyCartCheckout(cartItems);
-        cartService.payingTotalAmount(cartItems);
-        return ResponseEntity.noContent().build();
-    }
-
 }

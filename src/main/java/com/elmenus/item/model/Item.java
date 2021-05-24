@@ -1,7 +1,6 @@
 package com.elmenus.item.model;
 
 import com.elmenus.cart.model.CartItem;
-import com.elmenus.order.model.Orders;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,9 +29,6 @@ public class Item {
 
     @Column(name = "available")
     private boolean available;
-
-//    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Orders> orders;
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems;

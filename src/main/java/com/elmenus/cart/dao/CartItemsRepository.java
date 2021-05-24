@@ -12,4 +12,7 @@ public interface CartItemsRepository extends JpaRepository<CartItem,Integer> {
 
     @Query(value = "select cartItem from CartItem cartItem Join cartItem.orders o where o.orderId = cartItem.orders and o.ordered=0 and user_id=:user_id")
     Optional<List<CartItem>> findCartItemsByUserId(@Param("user_id")Integer userId);
+
+    @Query(value="select orderList from CartItem orderList where orderList.orders.ordered=0 and orderList.orders.orderId =:orderId")
+    List<CartItem> getUserOrdersByCartItemOrderId(@Param("orderId") Integer orderId);
 }
