@@ -1,6 +1,7 @@
 package com.elmenus.order.controller;
 
 import com.elmenus.cart.dto.CartDTO;
+import com.elmenus.order.dto.OrderDTO;
 import com.elmenus.order.model.Orders;
 import com.elmenus.order.service.CreatePaymentResponse;
 import com.elmenus.order.service.OrderService;
@@ -17,9 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,8 +35,8 @@ public class OrderController {
     @Autowired
     private OrderUtil orderUtil;
 
-    @GetMapping
-    ResponseEntity<List<Orders>> getAllOrders(){
+    @GetMapping("/get")
+    ResponseEntity<List<OrderDTO>> getAllOrders(){
         return new ResponseEntity<>(orderService.getAllOrders(), HttpStatus.OK);
     }
 
@@ -73,5 +72,11 @@ public class OrderController {
             se.printStackTrace();
         }
         return "payment";
+    }
+
+    @PutMapping("/updateOrder")
+    ResponseEntity<Orders> placeOrder(@RequestBody OrderDTO orderDTO){
+        Orders h = orderService.updateOrder(orderDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -7,16 +7,18 @@ import com.elmenus.cart.exception.CartHasNoItemsException;
 import com.elmenus.cart.exception.SoldOutCartItemException;
 import com.elmenus.cart.model.CartItem;
 import com.elmenus.mapper.CartItemMapper;
+import com.elmenus.mapper.OrderMapper;
 import com.elmenus.order.dao.OrderRepository;
+import com.elmenus.order.dto.OrderDTO;
 import com.elmenus.order.exception.MaximumOrderCostException;
 import com.elmenus.order.exception.MinimumOrderCostException;
+import com.elmenus.order.exception.OrderNotFoundException;
 import com.elmenus.order.model.Orders;
 import com.elmenus.order.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.text.DecimalFormat;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,13 +43,14 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderUtil orderUtil;
 
-    @Value("${stripe.secret.key}")
-    private String stripeSecretKey;
+    @Autowired
+    private OrderMapper orderMapper;
 
 
     @Override
-    public List<Orders> getAllOrders() {
-        return orderRepository.findAll();
+    public List<OrderDTO> getAllOrders() {
+        List<Orders> ordersList =  orderRepository.findAll();
+        return ordersList.stream().map(order -> orderMapper.mapEntityToDTO(order)).collect(Collectors.toList());
     }
 
     @Override
@@ -70,6 +73,26 @@ public class OrderServiceImpl implements OrderService {
         }else{
             throw new CartHasNoItemsException();
         }
+    }
+
+    @Override
+    public Orders updateOrder(OrderDTO orderDTO) {
+        Optional<Orders> databaseResult =  orderRepository.findById(orderDTO.getOrderId());
+        if(!databaseResult.isPresent()){
+            throw new OrderNotFoundException();
+        }
+
+        Orders updatedEntity = new Orders();
+        databaseResult.ifPresent(entity -> {
+            updatedEntity.setOrderId(entity.getOrderId());
+            updatedEntity.setCartItems(entity.getCartItems());
+            updatedEntity.setTotal(orderDTO.getTotal());
+            updatedEntity.setOrdered(true);
+            updatedEntity.setCreatedOn(new Timestamp(System.currentTimeMillis()));
+            updatedEntity.setUser(entity.getUser());
+        });
+
+        return orderRepository.save(updatedEntity);
     }
 
     //Validate the basket items availability

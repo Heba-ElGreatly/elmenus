@@ -1,5 +1,5 @@
 // A reference to Stripe.js initialized with your real test publishable API key.
-var stripe = Stripe("pk_test_51ItnBkHrn2XXBsb69vXw6Ex2w777MPkjT127xhsO0rCihfoNdggfLEx45IOJMtC1Va0lbMFj0MC0JXvHuP8M69iD00Z9Ek6HJw");
+var stripe = Stripe("publishable key");
 
 // Disable the button until we have Stripe set up on the page
 document.querySelector("button").disabled = true;
