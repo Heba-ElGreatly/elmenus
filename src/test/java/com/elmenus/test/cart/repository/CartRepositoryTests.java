@@ -10,7 +10,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +32,6 @@ public class CartRepositoryTests {
     public void checkBurgerItemAvailability(){
         List<CartItem> cartItem = cartItemsRepository.getUserOrdersByCartItemOrderId(3);
         assertTrue(cartItem.get(0).getItem().isAvailable());
-//        assertThat(cartItem.get(0).getItemQuantity(), Matchers.greaterThan(0));
     }
 
     @Test

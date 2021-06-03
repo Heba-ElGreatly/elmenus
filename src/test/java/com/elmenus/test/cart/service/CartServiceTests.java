@@ -1,20 +1,16 @@
-package com.elmenus.test.cart;
+package com.elmenus.test.cart.service;
 
 import com.elmenus.ElmenusApp;
 import com.elmenus.cart.dto.CartDTO;
-import com.elmenus.cart.service.CartService;
 import com.elmenus.cart.service.CartServiceImpl;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import static org.junit.Assert.assertEquals;
@@ -38,9 +34,13 @@ public class CartServiceTests {
     public void verifyUserEmail(){
         CartDTO cartDto = cartService.getUserCartItems(1);
         assertEquals(cartDto.getUserEmail(), "heba.elgreatly@gmail.com");
-//        assertThat(cartDto.getCartItems().size(), Matchers.greaterThan(0));
     }
 
-
+    @Test
+    @Transactional
+    public void verifyCartIsNotEmpty(){
+        CartDTO cartDto = cartService.getUserCartItems(1);
+        assertThat(cartDto.getCartItems().size(), Matchers.greaterThan(0));
+    }
 
 }

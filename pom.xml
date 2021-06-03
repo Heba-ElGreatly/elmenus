@@ -19,7 +19,7 @@
         <java.version>1.8</java.version>
         <!--<junit.jupiter.version>5.6.2</junit.jupiter.version>-->
         <sleuth.version>2.2.3.RELEASE</sleuth.version>
-        <junit.jupiter.engine.version>5.7.0</junit.jupiter.engine.version>
+
     </properties>
 
 
@@ -65,8 +65,6 @@
             <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-
-
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -130,13 +128,6 @@
             <scope>compile</scope>
         </dependency>
 
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.jupiter.engine.version}</version>
-            <scope>test</scope>
-        </dependency>
 
     </dependencies>
     <build>

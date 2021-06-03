@@ -50,7 +50,6 @@ public class OrderController {
 
     @PostMapping("/orderForm")
     public String createOrder(CartDTO order, Model model) {
-        System.out.println("----------- order id is "+ order.getOrderId());
         CartDTO listToBeOrdered = orderService.getUserPreOrderItems(order.getOrderId());
         Stripe.apiKey = stripeSecretKey;
         Long totalAmount = orderUtil.calculateOrderAmountInPiasters(listToBeOrdered);
